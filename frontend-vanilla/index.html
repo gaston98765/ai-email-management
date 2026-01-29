@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Email Summarizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    <h1>AI Email Summarizer</h1>
+                </div>
+                <div class="header-actions">
+                    <select id="model-select" class="model-select">
+                        <option value="deepseek-coder:instruct">DeepSeek</option>
+                        <option value="mistral">Mistral</option>
+                        <option value="llama3">LLaMA 3</option>
+                    </select>
+                    <button id="theme-toggle" class="btn btn-outline btn-icon" title="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="refresh-btn" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <i class="fas fa-envelope"></i>
+                    <span id="total-emails">0</span>
+                    <span>Total Emails</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-bolt"></i>
+                    <span id="summarized-emails">0</span>
+                    <span>Summarized</span>
+                </div>
+                <div class="stat-item priority-stat">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="priority-emails">0</span>
+                    <span>High Priority</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="last-update">Never</span>
+                    <span>Last Update</span>
+                </div>
+            </div>
+
+            <!-- Email Layout -->
+            <div class="email-layout">
+                <!-- Email List -->
+                <div class="email-list-section">
+                    <div class="section-header">
+                        <h2>Inbox</h2>
+                        <div class="header-controls">
+                            <div class="view-toggle">
+                                <button id="list-view" class="view-btn active" title="List view">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                                <button id="card-view" class="view-btn" title="Card view">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                            </div>
+                            <span id="email-count" class="badge">0 emails</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Search and Filter -->
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-input" placeholder="Search emails...">
+                        </div>
+                        <select id="filter-select" class="filter-select">
+                            <option value="all">All Emails</option>
+                            <option value="summarized">Summarized</option>
+                            <option value="unsummarized">Not Summarized</option>
+                        </select>
+                    </div>
+
+                    <!-- Category Tabs -->
+                    <div class="category-tabs">
+                        <button class="category-tab active" data-category="all">
+                            <i class="fas fa-inbox"></i>
+                            All
+                        </button>
+                        <button class="category-tab" data-category="personal">
+                            <i class="fas fa-user"></i>
+                            Personal
+                        </button>
+                        <button class="category-tab" data-category="work">
+                            <i class="fas fa-briefcase"></i>
+                            Work
+                        </button>
+                        <button class="category-tab" data-category="promotions">
+                            <i class="fas fa-tag"></i>
+                            Promotions
+                        </button>
+                        <button class="category-tab" data-category="social">
+                            <i class="fas fa-users"></i>
+                            Social
+                        </button>
+                    </div>
+
+                    <!-- Bulk Actions -->
+                    <div class="bulk-actions">
+                        <button id="summarize-all-btn" class="btn btn-primary">
+                            <i class="fas fa-magic"></i>
+                            Summarize All
+                        </button>
+                        <button id="mark-all-read-btn" class="btn btn-outline">
+                            <i class="fas fa-check-double"></i>
+                            Mark All Read
+                        </button>
+                        <div class="progress-container hidden" id="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <span class="progress-text" id="progress-text">0/0 emails processed</span>
+                        </div>
+                    </div>
+
+                    <div id="email-list" class="email-list"></div>
+                </div>
+
+                <!-- Email Detail -->
+                <div class="email-detail-section">
+                    <div id="email-detail" class="email-detail">
+                        <div class="empty-state">
+                            <i class="fas fa-envelope fa-3x"></i>
+                            <p>Select an email to view details</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
