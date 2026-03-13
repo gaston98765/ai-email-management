@@ -22,7 +22,7 @@ const state = {
   },
 }
 
-// API Configuration - Update this to match your server
+// API Configuration 
 const API_BASE_URL = "http://localhost:3001"
 
 // ===== 2. Utilities =====
